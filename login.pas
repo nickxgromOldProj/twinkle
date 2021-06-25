@@ -10,7 +10,7 @@ type
   TUser = record
     log: string[16];
     pass: string[16];
-    id: byte;
+    id: word;
   end;
   Tloging = class(TForm)
     Edit1: TEdit;
@@ -38,36 +38,46 @@ type
 
 var
   loging: Tloging;
+  log: string[16];
+  pass: string[16];
 
 implementation
 
 {$R *.dfm}
 
+uses main;
+
 procedure Tloging.Button1Click(Sender: TObject);
 var
   r: boolean;
-  login: string[16];
-  pass: string[16];
 begin
   if (Edit1.Text<>'') and (Edit2.Text<>'') then
   begin
     AssignFile(t, ExtractFilePath(Application.ExeName)+'users/users.txt');
     reset(t);
-    login := Edit1.Text;
+    r := false;
+    log := Edit1.Text;
     pass := Edit2.Text;
     while not eof(t) and not(r) do
     begin
       read(t, user);
-      r := (user.log = login);
+      r := (user.log = log);
     end;
     if r and (pass = user.pass) then
-      ShowMessage('найден')
+    begin
+      app.Show;
+      app.l := log;
+      app.userInf.log := user.log;
+      app.userInf.pass := user.pass;
+      app.userInf.id := user.id;
+      loging.Hide;
+      app.Label1.Caption := IntToStr(user.id);
+    end
     else
       MessageBox(0, 'Пользователя с таким логином не найдено или неверно введен пароль', 'Ошибка', mb_iconError);
   end
   else
     MessageBox(0, 'Необходимо заполнить все поля', 'Внимание', mb_iconInformation);
-
 end;
 
 procedure Tloging.Button2Click(Sender: TObject);
@@ -83,29 +93,35 @@ end;
 
 procedure Tloging.Button3Click(Sender: TObject);
 var
-  login: string[16];
   r: boolean;
 begin
   if (Edit1.Text<>'') and (Edit2.Text<>'') and (Edit3.Text<>'') then
     if (Edit2.Text = Edit3.Text) then
     begin
       r := true;
-      randomize;
       AssignFile(t, ExtractFilePath(Application.ExeName)+'users/users.txt');
       reset(t);
-      login := Edit1.Text;
+      log := Edit1.Text;
       while not eof(t) and r do
       begin
         read(t, user);
-          r := not(user.log = login);
+          r := not(user.log = log);
       end;
       if r then
       begin
         MessageBox(0, 'Аккаунт успешно зарегистрирован', 'Успешно', mb_iconInformation);
+        if fileSize(t) = 0 then
+          user.id := 1
+        else
+        begin
+          seek(t, fileSize(t)-1);
+          read(t, user);
+          user.id := user.id +1;
+        end;
         user.log := Edit1.Text;
         user.pass := Edit2.Text;
-        user.id := random(256);
         write(t, user);
+        createdir('users\'+'user_id_'+IntToStr(user.id));
         Button4.Click;
       end
       else
@@ -131,7 +147,7 @@ end;
 
 procedure Tloging.Edit1KeyPress(Sender: TObject; var Key: Char);
 begin
-  if not(Key in ['A'..'z']) and not(Key in ['0'..'9']) then
+  if not(Key in ['A'..'z']) and not(Key in ['0'..'9']) and (ord(Key)<>8) then
     Key := #0;
 end;
 

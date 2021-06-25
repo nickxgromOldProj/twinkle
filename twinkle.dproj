@@ -105,6 +105,10 @@
             <Form>loging</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="main\main.pas">
+            <Form>app</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -131,7 +135,7 @@
                 </Excluded_Packages>
             </Delphi.Personality>
             <Deployment Version="3">
-                <DeployFile LocalName="Win32\Debug\twinkle.exe" Configuration="Debug" Class="ProjectOutput">
+                <DeployFile LocalName="twinkle.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>twinkle.exe</RemoteName>
                         <Overwrite>true</Overwrite>
