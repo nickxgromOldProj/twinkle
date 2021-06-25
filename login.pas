@@ -54,6 +54,8 @@ begin
 // Автовход
   Edit1.Text := 'nxg';
   Edit2.Text := '0899';
+  AddFontResource('resources/fonts/1.ttf');
+  SendMessage(HWND_BROADCAST, WM_FONTCHANGE, 0, 0) ;
   if (Edit1.Text<>'') and (Edit2.Text<>'') then
   begin
     AssignFile(t, ExtractFilePath(Application.ExeName)+'users/users.txt');
@@ -92,6 +94,7 @@ end;
 procedure Tloging.Button3Click(Sender: TObject);
 var
   r: boolean;
+  f: textFile;
 begin
   if (Edit1.Text<>'') and (Edit2.Text<>'') and (Edit3.Text<>'') then
     if (Edit2.Text = Edit3.Text) then
@@ -120,6 +123,9 @@ begin
         user.pass := Edit2.Text;
         write(t, user);
         createdir('users\'+'user_id_'+IntToStr(user.id));
+        AssignFile(f, 'users/user_id_'+IntToStr(user.id)+'/boardsInfo.txt');
+        rewrite(f);
+        closeFile(f);
         Button4.Click;
       end
       else

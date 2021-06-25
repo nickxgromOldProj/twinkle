@@ -1962,18 +1962,6 @@ object app: Tapp
         0099330099330099330099330099330099330099330099330099330099330099
         3300}
     end
-    object Label4: TLabel
-      Left = 40
-      Top = 157
-      Width = 6
-      Height = 23
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWhite
-      Font.Height = -19
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-    end
     object boardNameEdit: TEdit
       Left = 24
       Top = 48
@@ -1987,8 +1975,6 @@ object app: Tapp
       MaxLength = 16
       ParentFont = False
       TabOrder = 0
-      OnChange = boardNameEditChange
-      OnKeyPress = boardNameEditKeyPress
     end
     object moreBGbtn: TButton
       Left = 236
