@@ -1,4 +1,4 @@
-unit main;
+п»їunit main;
 
 interface
 
@@ -48,8 +48,8 @@ type
     previewImg: TImage;
     Label4: TLabel;
     bgPickSB: TScrollBox;
-    procedure boardSel(Sender:Tobject); //Возращает значение доски, на которую кликнул пользователь
-    procedure loadBoards;               //Загружает доски из users/user_id_<id_пользователя>/boardsInfo.txt
+    procedure boardSel(Sender:Tobject); //Р’РѕР·СЂР°С‰Р°РµС‚ Р·РЅР°С‡РµРЅРёРµ РґРѕСЃРєРё, РЅР° РєРѕС‚РѕСЂСѓСЋ РєР»РёРєРЅСѓР» РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ
+    procedure loadBoards;               //Р—Р°РіСЂСѓР¶Р°РµС‚ РґРѕСЃРєРё РёР· users/user_id_<id_РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ>/boardsInfo.txt
     procedure pickImg(Sender:Tobject);  //
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Button1Click(Sender: TObject);
@@ -78,7 +78,7 @@ var
   lft, tp: integer;
   imgPath: string;
   preImg: array[1..20] of TImage;
-  bgName: string;
+  s: string;
 
 implementation
 
@@ -144,12 +144,10 @@ var
   i: byte;
   lft, tp: word;
 begin
-  for i := 1 to 20 do
-    FreeAndNil(preImg[i]);
   bgPickSB.Visible := true;
   lft := 20;
   tp := 20;
-  for i := 1 to 19 do
+  for i := 1 to 8 do
   begin
     preImg[i] := TImage.Create(app);
     preImg[i].Parent := bgPickSB;
@@ -167,6 +165,7 @@ begin
         lft := 20;
     end;
   end;
+
 end;
 
 procedure Tapp.Button1Click(Sender: TObject);
@@ -205,8 +204,6 @@ procedure Tapp.createCancelBtnClick(Sender: TObject);
 begin
   createBoardDlg.Visible := false;
   boardNameEdit.Text := '';
-  bgPickSB.Visible := false;
-
 end;
 
 procedure Tapp.createOkBtnClick(Sender: TObject);
@@ -216,20 +213,20 @@ var
 begin
   inc(board_count);
   im[board_count].img := TImage.Create(app);
-  im[board_count].bgName := bgName;
+  im[board_count].bgName := s;
 
   if boardNameEdit.Text='' then
-    boardNameEdit.Text := 'Доска ' + IntToStr(board_count);
+    boardNameEdit.Text := 'Р”РѕСЃРєР° ' + IntToStr(board_count);
 
   im[board_count].customName := boardNameEdit.Text;
   boardNameEdit.Text := '';
 
-//  Создание файла новой доски
+//  РЎРѕР·РґР°РЅРёРµ С„Р°Р№Р»Р° РЅРѕРІРѕР№ РґРѕСЃРєРё
   AssignFile(f, 'users/user_id_'+IntToStr(userInf.id)+'/board_'+IntToStr(board_count)+'.txt');
   rewrite(f);
   closeFile(f);
 
-//  Запись информации о доске
+//  Р—Р°РїРёСЃСЊ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РґРѕСЃРєРµ
   AssignFile(bInfo, 'users/user_id_'+IntToStr(userInf.id)+'/boardsInfo.txt');
     reset(bInfo);
     seek(bInfo, fileSize(bInfo));
@@ -238,7 +235,6 @@ begin
 
   createBoardDlg.Visible := false;
   loadBoards;
-  bgPickSB.Visible := false;
 end;
 
 procedure Tapp.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -253,7 +249,7 @@ begin
   userInf.id := loging.user.id;
   Label1.Caption := userInf.log;
   Label4.Font.Name := '1';
-  bgName := '6.jpg';
+//  OpenPictureDialog1.FileName := 'preVectorCity.jpg';
 
   loadBoards;
 end;
@@ -296,11 +292,11 @@ begin
       if (Sender as TImage).Name = 'preImg' + IntToStr(i)  then
       begin
         previewImg.Picture.LoadFromFile('resources/img/previewBG/' + IntToStr(i) + '.jpg');
-        bgName := IntToStr(i) + '.jpg';
+        s := IntToStr(i) + '.jpg';
       end;
       for j := 1 to 20 do
         FreeAndNil(preImg[j]);
-    bgPickSB.Visible := false;
+        bgPickSB.Visible := false;
   end;
 end;
 

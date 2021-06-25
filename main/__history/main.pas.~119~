@@ -144,12 +144,10 @@ var
   i: byte;
   lft, tp: word;
 begin
-  for i := 1 to 20 do
-    FreeAndNil(preImg[i]);
   bgPickSB.Visible := true;
   lft := 20;
   tp := 20;
-  for i := 1 to 19 do
+  for i := 1 to 8 do
   begin
     preImg[i] := TImage.Create(app);
     preImg[i].Parent := bgPickSB;
@@ -167,6 +165,7 @@ begin
         lft := 20;
     end;
   end;
+
 end;
 
 procedure Tapp.Button1Click(Sender: TObject);
@@ -205,8 +204,6 @@ procedure Tapp.createCancelBtnClick(Sender: TObject);
 begin
   createBoardDlg.Visible := false;
   boardNameEdit.Text := '';
-  bgPickSB.Visible := false;
-
 end;
 
 procedure Tapp.createOkBtnClick(Sender: TObject);
@@ -238,7 +235,6 @@ begin
 
   createBoardDlg.Visible := false;
   loadBoards;
-  bgPickSB.Visible := false;
 end;
 
 procedure Tapp.FormClose(Sender: TObject; var Action: TCloseAction);

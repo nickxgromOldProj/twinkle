@@ -78,7 +78,7 @@ var
   lft, tp: integer;
   imgPath: string;
   preImg: array[1..20] of TImage;
-  bgName: string;
+  s: string;
 
 implementation
 
@@ -144,12 +144,10 @@ var
   i: byte;
   lft, tp: word;
 begin
-  for i := 1 to 20 do
-    FreeAndNil(preImg[i]);
   bgPickSB.Visible := true;
   lft := 20;
   tp := 20;
-  for i := 1 to 19 do
+  for i := 1 to 8 do
   begin
     preImg[i] := TImage.Create(app);
     preImg[i].Parent := bgPickSB;
@@ -167,6 +165,7 @@ begin
         lft := 20;
     end;
   end;
+
 end;
 
 procedure Tapp.Button1Click(Sender: TObject);
@@ -205,8 +204,6 @@ procedure Tapp.createCancelBtnClick(Sender: TObject);
 begin
   createBoardDlg.Visible := false;
   boardNameEdit.Text := '';
-  bgPickSB.Visible := false;
-
 end;
 
 procedure Tapp.createOkBtnClick(Sender: TObject);
@@ -216,9 +213,11 @@ var
 begin
   inc(board_count);
   im[board_count].img := TImage.Create(app);
-  im[board_count].bgName := bgName;
+  im[board_count].bgName := ExtractFileName(previewImg.Name);
 
-  if boardNameEdit.Text='' then
+  if boardNameEdit.Text<>'' then
+    im[board_count].img.Canvas.TextOut(20, 5, boardNameEdit.Text)
+  else
     boardNameEdit.Text := 'Доска ' + IntToStr(board_count);
 
   im[board_count].customName := boardNameEdit.Text;
@@ -238,7 +237,6 @@ begin
 
   createBoardDlg.Visible := false;
   loadBoards;
-  bgPickSB.Visible := false;
 end;
 
 procedure Tapp.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -253,7 +251,7 @@ begin
   userInf.id := loging.user.id;
   Label1.Caption := userInf.log;
   Label4.Font.Name := '1';
-  bgName := '6.jpg';
+//  OpenPictureDialog1.FileName := 'preVectorCity.jpg';
 
   loadBoards;
 end;
@@ -296,11 +294,11 @@ begin
       if (Sender as TImage).Name = 'preImg' + IntToStr(i)  then
       begin
         previewImg.Picture.LoadFromFile('resources/img/previewBG/' + IntToStr(i) + '.jpg');
-        bgName := IntToStr(i) + '.jpg';
+        s := IntToStr(i) + '.jpg
       end;
       for j := 1 to 20 do
         FreeAndNil(preImg[j]);
-    bgPickSB.Visible := false;
+        bgPickSB.Visible := false;
   end;
 end;
 
