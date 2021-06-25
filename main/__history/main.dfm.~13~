@@ -38,8 +38,8 @@ object app: Tapp
     OnClick = Button1Click
   end
   object boards_menu: TPanel
-    Left = 26
-    Top = 59
+    Left = 25
+    Top = 51
     Width = 1230
     Height = 529
     TabOrder = 1

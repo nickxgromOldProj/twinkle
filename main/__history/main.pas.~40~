@@ -97,7 +97,7 @@ begin
   im[board_count].Width := 200;
   im[board_count].Top := tp;
   im[board_count].Left := lft;
-  im[board_count].OnClick := gio;
+  im[board_count].OnClick := gio();
   im[board_count].Canvas.Brush.Color := rgb(random(255), random(255), random(255));
   im[board_count].Canvas.Rectangle(0, 0, 200, 100);
   AssignFile(f, 'users/user_id_'+IntToStr(userInf.id)+'/board_'+IntToStr(board_count)+'.txt');

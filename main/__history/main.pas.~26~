@@ -1,4 +1,4 @@
-unit main;
+﻿unit main;
 
 interface
 
@@ -35,7 +35,6 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Button1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure gio(Sender:Tobject);
   private
     { Private declarations }
   public
@@ -49,10 +48,10 @@ var
   board: array[1..5] of TList;
   list: TList;
   card: TCard;
-  im: array[1..20] of TImage;
-//  im1, im2, im3, im4, im5: TImage;
+  im: array[1..10] of TImage;
+  im1, im2, im3, im4, im5: TImage;
   board_count: byte;
-  lft, tp: integer;
+  lft, top: integer;
 
 implementation
 
@@ -60,15 +59,10 @@ implementation
 
 uses login;
 
-procedure Tapp.gio(Sender:Tobject);
-begin
-  ShowMessage(IntToStr(board_count));
-end;
-
 procedure Tapp.Button1Click(Sender: TObject);
 var
   i, j: byte;
-  f: textFile;
+  f: file of TList;
 begin
 //  assignFile(f, 'users/user_id_1/q.txt');
 //  reset(f);
@@ -90,28 +84,69 @@ begin
 //  end;
 //  closefile(f);
 
+  if board_count mod 5 = 0 then
+  begin
+    top := top + 120;
+    left := 55;
+  end;
+
+
   inc(board_count);
   im[board_count] := TImage.Create(app);
   im[board_count].Parent := boards_menu;
   im[board_count].Height := 100;
   im[board_count].Width := 200;
-  im[board_count].Top := tp;
+  im[board_count].Top := top;
   im[board_count].Left := lft;
-  im[board_count].OnClick := gio;
-  im[board_count].Canvas.Brush.Color := rgb(random(255), random(255), random(255));
+  im[board_count].Canvas.Brush.Color := rgb(255, 8, 127);
   im[board_count].Canvas.Rectangle(0, 0, 200, 100);
-  AssignFile(f, 'users/user_id_'+IntToStr(userInf.id)+'/board_'+IntToStr(board_count)+'.txt');
-  rewrite(f);
-  closeFile(f);
   lft := lft + 230;
 
-  if board_count mod 5 = 0 then
-  begin
-    tp := tp + 120;
-    lft := 55;
-  end;
-  if board_count = 20 then
-    Button1.Enabled := false;
+//
+//    im1 := TImage.Create(app);
+//    im1.Parent := boards_menu;
+//    im1.Width := 200;
+//    im1.Height := 100;
+//    im1.Top := 50;
+//    im1.Left := 55;
+//    im1.Canvas.Pen.Color := rgb(255, 150, 0);
+//    im1.Canvas.Rectangle(0, 0, 200, 100);
+//
+//    im2 := TImage.Create(app);
+//    im2.Parent := boards_menu;
+//    im2.Width := 200;
+//    im2.Height := 100;
+//    im2.Top := 50;
+//    im2.Left := im1.Left + 230;
+//    im2.Canvas.Pen.Color := rgb(255, 12, 12);
+//    im2.Canvas.Rectangle(0, 0, 200, 100);
+//
+//    im3 := TImage.Create(app);
+//    im3.Parent := boards_menu;
+//    im3.Width := 200;
+//    im3.Height := 100;
+//    im3.Top := 50;
+//    im3.Left := im2.Left + 230;
+//    im3.Canvas.Pen.Color := rgb(255, 12, 12);
+//    im3.Canvas.Rectangle(0, 0, 200, 100);
+//
+//    im4 := TImage.Create(app);
+//    im4.Parent := boards_menu;
+//    im4.Width := 200;
+//    im4.Height := 100;
+//    im4.Top := 50;
+//    im4.Left := im3.Left + 230;
+//    im4.Canvas.Pen.Color := rgb(255, 12, 12);
+//    im4.Canvas.Rectangle(0, 0, 200, 100);
+//
+//    im5 := TImage.Create(app);
+//    im5.Parent := boards_menu;
+//    im5.Width := 200;
+//    im5.Height := 100;
+//    im5.Top := 50;
+//    im5.Left := im4.Left + 230;
+//    im5.Canvas.Pen.Color := rgb(255, 12, 12);
+//    im5.Canvas.Rectangle(0, 0, 200, 100);
 end;
 
 procedure Tapp.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -121,13 +156,11 @@ end;
 
 procedure Tapp.FormShow(Sender: TObject);
 begin
-  tp := 10;
   lft := 55;
-  board_count := 0;
   userInf.log := loging.user.log;
   userInf.pass := loging.user.pass;
   userInf.id := loging.user.id;
-  Label1.Caption := IntToStr(userInf.id);
+  Label1.Caption := intToStr(userInf.id);
 end;
 
 end.
