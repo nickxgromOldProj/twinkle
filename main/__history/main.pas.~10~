@@ -7,10 +7,24 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls;
 
 type
+  TData = record
+    day: 1..31;
+    month: 1..12;
+    year: word;
+  end;
+  TCard = record
+    name: string[16];
+    discription: string[127];
+//    marker: set of ['white', 'red', 'green', 'blue'];
+    data: TData;
+  end;
+  TList = record
+    lst: array[1..20] of TCard;
+  end;
   TUser = record
     log: string[16];
     pass: string[16];
-    id: byte;
+    id: word;
   end;
   Tapp = class(TForm)
     Label1: TLabel;
@@ -27,14 +41,38 @@ type
 
 var
   app: Tapp;
+  board: array[1..5] of TList;
+  list: TList;
+  card: TCard;
 
 implementation
 
 {$R *.dfm}
 
 procedure Tapp.Button1Click(Sender: TObject);
+var
+  i: Integer;
+  j: Integer;
+  f: textFile;
 begin
-  Label1.Caption := INtToStr(userInf.id);
+  for i := 1 to 5 do
+  begin
+    for j := 1 to 20 do
+    begin
+      card.name := '1';
+      card.discription := 'sd';
+//      card.marker := ['white'];
+      card.data.day := 4;
+      card.data.month := 1;
+      card.data.year := 1234;
+      list.lst[j] := card;
+    end;
+    board[i] := list;
+    assign(f, 'q');
+    reset(f);
+
+    closefile(f);
+  end;
 end;
 
 procedure Tapp.FormClose(Sender: TObject; var Action: TCloseAction);

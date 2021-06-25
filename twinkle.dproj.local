@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>1899.12.30 00:00:00.000.968,C:\Users\NickGrom\Desktop\Twinkle\login\login.pas=C:\Users\NickGrom\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.893,C:\Users\NickGrom\Desktop\Twinkle\login\main\main.pas=C:\Users\NickGrom\Desktop\Twinkle\login\Unit1.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.968,C:\Users\NickGrom\Desktop\Twinkle\login\login.dfm=C:\Users\NickGrom\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.893,C:\Users\NickGrom\Desktop\Twinkle\login\main\main.dfm=C:\Users\NickGrom\Desktop\Twinkle\login\Unit1.dfm</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.939,C:\Users\NickGrom\Desktop\Twinkle\login\twinkle.dproj=C:\Users\NickGrom\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.127,=C:\Users\NickGrom\Desktop\Twinkle\login\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.968,C:\Users\NickGrom\Documents\Embarcadero\Studio\Projects\Unit1.dfm=C:\Users\NickGrom\Desktop\Twinkle\login\login.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.939,C:\Users\NickGrom\Documents\Embarcadero\Studio\Projects\Project1.dproj=C:\Users\NickGrom\Desktop\Twinkle\login\twinkle.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.893,C:\Users\NickGrom\Desktop\Twinkle\login\Unit1.dfm=C:\Users\NickGrom\Desktop\Twinkle\login\main\main.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.893,C:\Users\NickGrom\Desktop\Twinkle\login\Unit1.pas=C:\Users\NickGrom\Desktop\Twinkle\login\main\main.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.968,C:\Users\NickGrom\Documents\Embarcadero\Studio\Projects\Unit1.pas=C:\Users\NickGrom\Desktop\Twinkle\login\login.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.002,=C:\Users\NickGrom\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.276,=C:\Users\NickGrom\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.419,=C:\Users\NickGrom\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.127,=C:\Users\NickGrom\Desktop\Twinkle\login\Unit1.pas</Transaction>
   </Transactions>
 </BorlandProject>

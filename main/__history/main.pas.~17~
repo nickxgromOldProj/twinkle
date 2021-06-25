@@ -4,7 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls;
 
 type
   TColor = (red, green, blue, white);
@@ -47,7 +47,6 @@ var
   board: array[1..5] of TList;
   list: TList;
   card: TCard;
-  im1, im2, im3, im4, im5: TImage;
 
 implementation
 
@@ -57,36 +56,29 @@ uses login;
 
 procedure Tapp.Button1Click(Sender: TObject);
 var
-  i, j: byte;
+  i: Integer;
+  j: Integer;
   f: file of TList;
 begin
-//  assignFile(f, 'users/user_id_1/q.txt');
-//  reset(f);
-//  for i := 1 to 5 do
-//  begin
-//    list.name := 'name';
-//    for j := 1 to 20 do
-//    begin
-//      card.name := IntToStr(j);
-//      card.discription := 'sd';
-//      card.marker := [red];
-//      card.data.day := 4;
-//      card.data.month := 1;
-//      card.data.year := 1234;
-//      list.lst[j] := card;
-//    end;
-//    board[i] := list;
-//    write(f, board[i]);
-//  end;
-//  closefile(f);
-    im1 := TImage.Create(app);
-    im1.Parent := app;
-    im1.Width := 100;
-    im1.Height := 100;
-    im1.Top := 50;
-    im1.Left := 20;
-    im1.Canvas.Pen.Color := rgb(255, 12, 12);
-    im1.Canvas.Rectangle(0, 0, 100,100);
+  assignFile(f, 'users/user_id_1/q.txt');
+  reset(f);
+  for i := 1 to 5 do
+  begin
+    list.name := 'name';
+    for j := 1 to 20 do
+    begin
+      card.name := '1';
+      card.discription := 'sd';
+      card.marker := [red];
+      card.data.day := 4;
+      card.data.month := 1;
+      card.data.year := 1234;
+      list.lst[j] := card;
+    end;
+    board[i] := list;
+    write(f, board[i]);
+  end;
+  closefile(f)
 end;
 
 procedure Tapp.FormClose(Sender: TObject; var Action: TCloseAction);

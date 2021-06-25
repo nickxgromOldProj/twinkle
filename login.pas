@@ -51,6 +51,9 @@ procedure Tloging.Button1Click(Sender: TObject);
 var
   r: boolean;
 begin
+// Автовход
+  Edit1.Text := 'nxg';
+  Edit2.Text := '0899';
   if (Edit1.Text<>'') and (Edit2.Text<>'') then
   begin
     AssignFile(t, ExtractFilePath(Application.ExeName)+'users/users.txt');
@@ -66,12 +69,7 @@ begin
     if r and (pass = user.pass) then
     begin
       app.Show;
-      app.l := log;
-      app.userInf.log := user.log;
-      app.userInf.pass := user.pass;
-      app.userInf.id := user.id;
       loging.Hide;
-      app.Label1.Caption := IntToStr(user.id);
     end
     else
       MessageBox(0, 'Пользователя с таким логином не найдено или неверно введен пароль', 'Ошибка', mb_iconError);
