@@ -36,7 +36,7 @@ type
   end;
   Tapp = class(TForm)
     Label1: TLabel;
-    Button1: TButton;
+    addBoardBtn: TButton;
     boards_menu: TPanel;
     createBoardDlg: TPanel;
     Label2: TLabel;
@@ -48,11 +48,12 @@ type
     previewImg: TImage;
     Label4: TLabel;
     bgPickSB: TScrollBox;
+    Panel1: TPanel;
     procedure boardSel(Sender:Tobject); //Возращает значение доски, на которую кликнул пользователь
     procedure loadBoards;               //Загружает доски из users/user_id_<id_пользователя>/boardsInfo.txt
     procedure pickImg(Sender:Tobject);  //
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    procedure Button1Click(Sender: TObject);
+    procedure addBoardBtnClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure createOkBtnClick(Sender: TObject);
     procedure createCancelBtnClick(Sender: TObject);
@@ -78,6 +79,7 @@ var
   lft, tp: integer;
   imgPath: string;
   preImg: array[1..20] of TImage;
+  bgName: string;
 
 implementation
 
@@ -115,6 +117,8 @@ begin
     im[board_count].img.OnClick := boardSel;
     im[board_count].img.Name := 'img' + IntToStr(board_count);
     im[board_count].img.Picture.LoadFromFile('resources/img/previewBG/' + im[board_count].bgName);
+    im[board_count].img.Stretch := true;
+    im[board_count].img.Proportional := true;
 
     lb[board_count] := TLabel.Create(app);
     lb[board_count].Parent := boards_menu;
@@ -123,8 +127,8 @@ begin
     lb[board_count].Left := lft+10;
     lb[board_count].Top := tp+10;
     lb[board_count].Name := 'lb' + IntToStr(board_count);
-    lb[board_count].Font.Name := '1';
-    lb[board_count].Font.Size := 14;
+    lb[board_count].Font.Name := 'oswald';
+    lb[board_count].Font.Size := 16;
     lb[board_count].Font.Color := clWhite;
     lb[board_count].Caption := im[board_count].customName;
 
@@ -136,6 +140,16 @@ begin
     end;
   end;
   closeFile(bInfo);
+  if board_count mod 5 = 0 then
+  begin
+    addBoardBtn.Left := 55;
+    addBoardBtn.Top := im[board_count].img.Top + 120;
+  end
+  else
+  begin
+    addBoardBtn.Top := im[board_count].img.Top;
+    addBoardBtn.Left := im[board_count].img.Left + 230;
+  end;
 end;
 
 procedure Tapp.moreBGbtnClick(Sender: TObject);
@@ -143,10 +157,12 @@ var
   i: byte;
   lft, tp: word;
 begin
+  for i := 1 to 20 do
+    FreeAndNil(preImg[i]);
   bgPickSB.Visible := true;
   lft := 20;
   tp := 20;
-  for i := 1 to 8 do
+  for i := 1 to 19 do
   begin
     preImg[i] := TImage.Create(app);
     preImg[i].Parent := bgPickSB;
@@ -164,45 +180,28 @@ begin
         lft := 20;
     end;
   end;
-
 end;
 
-procedure Tapp.Button1Click(Sender: TObject);
+procedure Tapp.addBoardBtnClick(Sender: TObject);
 var
   i, j: byte;
   f: textFile;
 begin
-//  assignFile(f, 'users/user_id_1/q.txt');
-//  reset(f);
-//  for i := 1 to 5 do
-//  begin
-//    list.name := 'name';
-//    for j := 1 to 20 do
-//    begin
-//      card.name := IntToStr(j);
-//      card.discription := 'sd';
-//      card.marker := [red];
-//      card.data.day := 4;
-//      card.data.month := 1;
-//      card.data.year := 1234;
-//      list.lst[j] := card;
-//    end;
-//    board[i] := list;
-//    write(f, board[i]);
-//  end;
-//  closefile(f);
-
-  if board_count < 20 then
+  if board_count < 25 then
   begin
     createBoardDlg.Visible := true;
     boardNameEdit.SetFocus;
-  end;
+  end
+  else
+    addBoardBtn.Visible := false;
 end;
 
 procedure Tapp.createCancelBtnClick(Sender: TObject);
 begin
   createBoardDlg.Visible := false;
   boardNameEdit.Text := '';
+  bgPickSB.Visible := false;
+
 end;
 
 procedure Tapp.createOkBtnClick(Sender: TObject);
@@ -212,11 +211,9 @@ var
 begin
   inc(board_count);
   im[board_count].img := TImage.Create(app);
-//  im[board_count].bgName := ExtractFileName(OpenPictureDialog1.FileName);
+  im[board_count].bgName := bgName;
 
-  if boardNameEdit.Text<>'' then
-    im[board_count].img.Canvas.TextOut(20, 5, boardNameEdit.Text)
-  else
+  if boardNameEdit.Text='' then
     boardNameEdit.Text := 'Доска ' + IntToStr(board_count);
 
   im[board_count].customName := boardNameEdit.Text;
@@ -236,6 +233,7 @@ begin
 
   createBoardDlg.Visible := false;
   loadBoards;
+  bgPickSB.Visible := false;
 end;
 
 procedure Tapp.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -249,8 +247,8 @@ begin
   userInf.pass := loging.user.pass;
   userInf.id := loging.user.id;
   Label1.Caption := userInf.log;
-  Label4.Font.Name := '1';
-//  OpenPictureDialog1.FileName := 'preVectorCity.jpg';
+  Label4.Font.Name := 'oswald';
+  bgName := '1.jpg';
 
   loadBoards;
 end;
@@ -285,12 +283,20 @@ end;
 
 procedure Tapp.pickImg(Sender: TObject);
 var
-  i: byte;
+  i, j: byte;
 begin
   if Sender is TImage then
-  for i := 1 to 20 do
-    if (Sender as TImage).Name =  then
-
+  begin
+    for i := 1 to 20 do
+      if (Sender as TImage).Name = 'preImg' + IntToStr(i)  then
+      begin
+        previewImg.Picture.LoadFromFile('resources/img/previewBG/' + IntToStr(i) + '.jpg');
+        bgName := IntToStr(i) + '.jpg';
+      end;
+      for j := 1 to 20 do
+        FreeAndNil(preImg[j]);
+    bgPickSB.Visible := false;
+  end;
 end;
 
 end.

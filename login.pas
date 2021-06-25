@@ -28,6 +28,7 @@ type
     procedure Button4Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
     procedure Edit1KeyPress(Sender: TObject; var Key: Char);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -54,8 +55,9 @@ begin
 // Автовход
   Edit1.Text := 'nxg';
   Edit2.Text := '0899';
-  AddFontResource('resources/fonts/1.ttf');
+  AddFontResource('C:\Users\NickGrom\Desktop\Проект_Мылтыкбаев_Громыко\TwinkleboardsMenu\login\resources\fonts\oswald.ttf');
   SendMessage(HWND_BROADCAST, WM_FONTCHANGE, 0, 0) ;
+AddFontResourceEx('C:\Users\NickGrom\Desktop\Проект_Мылтыкбаев_Громыко\TwinkleboardsMenu\login\resources\fonts\oswald.ttf',FR_PRIVATE,0);
   if (Edit1.Text<>'') and (Edit2.Text<>'') then
   begin
     AssignFile(t, ExtractFilePath(Application.ExeName)+'users/users.txt');
@@ -153,6 +155,11 @@ procedure Tloging.Edit1KeyPress(Sender: TObject; var Key: Char);
 begin
   if not(Key in ['A'..'z']) and not(Key in ['0'..'9']) and (ord(Key)<>8) then
     Key := #0;
+end;
+
+procedure Tloging.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  RemoveFontResource('1.ttf');
 end;
 
 end.

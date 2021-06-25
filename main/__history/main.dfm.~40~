@@ -24,28 +24,13 @@ object app: Tapp
     Height = 13
   end
   object boards_menu: TPanel
-    Left = 0
+    Left = 33
     Top = 51
-    Width = 1274
-    Height = 638
+    Width = 1230
+    Height = 529
     DoubleBuffered = False
     ParentDoubleBuffered = False
     TabOrder = 0
-    object addBoardBtn: TButton
-      Left = 55
-      Top = 10
-      Width = 200
-      Height = 100
-      Caption = #1044#1086#1073#1072#1074#1080#1090#1100' '#1076#1086#1089#1082#1091
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -21
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 1
-      OnClick = addBoardBtnClick
-    end
     object createBoardDlg: TPanel
       Left = 360
       Top = 184
@@ -450,11 +435,11 @@ object app: Tapp
       object Label4: TLabel
         Left = 40
         Top = 157
-        Width = 7
-        Height = 25
+        Width = 6
+        Height = 23
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWhite
-        Font.Height = -21
+        Font.Height = -19
         Font.Name = 'Tahoma'
         Font.Style = []
         ParentFont = False
@@ -509,6 +494,21 @@ object app: Tapp
         OnClick = createCancelBtnClick
       end
     end
+    object addBoardBtn: TButton
+      Left = 55
+      Top = 10
+      Width = 200
+      Height = 100
+      Caption = #1044#1086#1073#1072#1074#1080#1090#1100' '#1076#1086#1089#1082#1091
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -21
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 1
+      OnClick = addBoardBtnClick
+    end
   end
   object bgPickSB: TScrollBox
     Left = 730
@@ -525,8 +525,6 @@ object app: Tapp
     Top = 0
     Width = 1274
     Height = 50
-    Color = 5504344
-    ParentBackground = False
     TabOrder = 2
   end
 end

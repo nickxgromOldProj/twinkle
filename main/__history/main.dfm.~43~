@@ -450,11 +450,11 @@ object app: Tapp
       object Label4: TLabel
         Left = 40
         Top = 157
-        Width = 7
-        Height = 25
+        Width = 6
+        Height = 23
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWhite
-        Font.Height = -21
+        Font.Height = -19
         Font.Name = 'Tahoma'
         Font.Style = []
         ParentFont = False
